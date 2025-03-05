@@ -42,9 +42,59 @@ def threeSumBruteForce(nums):
 
     return list(result)
 
-print(threeSumBruteForce([-1, 0, 1, 2, -1, -4]))  # Expected output: [[-1, -1, 2], [-1, 0, 1]]
-print(threeSumBruteForce([0,1,1]))  # Expected output: []
-print(threeSumBruteForce([0,0,0]))  # Expected output: [[0,0,0]]
+# print(threeSumBruteForce([-1, 0, 1, 2, -1, -4]))  # Expected output: [[-1, -1, 2], [-1, 0, 1]]
+# print(threeSumBruteForce([0,1,1]))  # Expected output: []
+# print(threeSumBruteForce([0,0,0]))  # Expected output: [[0,0,0]]
+
+
+
 
         #####BETTER?
 # we can sort and think of twosum2...then use it to achieve three sum
+
+#sort?  Input: nums = [-4,-1,-1,0,1,2] -4+-1+2=-3<0; so here increment l else, decrement r 
+        # Output: [[-1,-1,2],[-1,0,1]]
+
+#we want to return an arr of the triplets, so init empty arr
+
+
+def threeSum(nums):
+    nums.sort() #help efficiently find triplets with 2 ptrs
+    res = []
+
+    #itarte thru nums keeping track if idx val
+
+    for i, val in enumerate(nums):
+        #avoid duplicates
+        if i > 0 and val == nums[i-1]:
+            continue
+        
+        #our ptrs
+        l, r = i + 1, len(nums)- 1
+
+        while l < r:
+            #our three sum is
+            threeSum = val + nums[l] + nums[r]
+
+            #checks
+            if threeSum < 0:
+                l += 1
+            elif threeSum > 0:
+                r -= 1
+            else:
+                #valid triplet, append to res
+                res.append([val, nums[l], nums[r]])
+
+                #move foward to check if we have any more unique vals for another triplet
+                l += 1               #[-4,-1,-1,-1,1,2]
+    
+                #we want to avoid repetition of triplets
+                while nums[l] == nums[l-1] and l < r: #bc l-1 already formed a Triplet
+                    l += 1
+
+    return res
+
+print(threeSum([-1, 0, 1, 2, -1, -4]))  # Expected output: [[-1, -1, 2], [-1, 0, 1]]
+print(threeSum([0,1,1]))  # Expected output: []
+print(threeSum([0,0,0]))  # Expected output: [[0,0,0]]
+
