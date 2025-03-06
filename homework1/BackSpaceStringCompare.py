@@ -47,14 +47,68 @@ def BackspaceStringCompare(s, t):
 
     return stackS == stackT
 
-print(BackspaceStringCompare("abcde", "abcde")) #True
-print(BackspaceStringCompare("Uber Career Prep", "u#Uber Careee#r Prep")) #True
-print(BackspaceStringCompare("abcdef###xyz", "abcw#xyz")) #True
-print(BackspaceStringCompare("abcdef###xyz", "abcdefxyz###")) #False
-print(BackspaceStringCompare("a##c", "#a#c")) #True
+# print(BackspaceStringCompare("abcde", "abcde")) #True
+# print(BackspaceStringCompare("Uber Career Prep", "u#Uber Careee#r Prep")) #True
+# print(BackspaceStringCompare("abcdef###xyz", "abcw#xyz")) #True
+# print(BackspaceStringCompare("abcdef###xyz", "abcdefxyz###")) #False
+# print(BackspaceStringCompare("a##c", "#a#c")) #True
 
 
 #OFFICE HOURS: two pointers is the BETTER approach for this question
 
     
+#s= "abcdef###xyz", t = "abcw#xyz")
+#back_s = 3  back_t = 1
+def backspace(s, t):
+    l = len(s) - 1
+    r = len(t)- 1 #we start at he end of both strs
+    back_s = 0
+    back_t = 0 #count backsaces we find
+
+    while l >= 0 or r >= 0:  #this, because the idea is we want to process both strs simultaneously!!!
+
+    
+        #s
+        while l >= 0:
+            if s[l] == "#":
+                back_s += 1
+                l -= 1
+
+        
+            elif back_s > 0: #its not a backspace but we have seen backspaces before; ,meaning, we need to delete or skip this char
+                back_s -= 1    #ie   def### -> back_s = 3, so we reduce it when we find f, d, and e
+                l -= 1
+
+            else:
+                #l -= 1  we want to break, so that we move to comparing the chars at this stage.... before we move ptrs
+                break
+        #t
+        while r >= 0:
+            if s[r] == "#":
+                back_t += 1
+                r -= 1
+
+        
+            elif back_t > 0:
+                back_t -= 1
+                r -= 1
+
+            else:
+                #r -= 1     we want to break, so that we move to comparing the chars at this stage.... before we move ptrs
+                break
+
+        #compare if both are still valid
+        if l >= 0 and r >= 0 and s[l] != t[r]:  #after executing else and breaking from both strs, w copare the curr chars
+            return False
+
+        l -= 1 #now that we have compared and theyre similar, so we can move our ptrs 
+        r -= 1
+    return True # all chars matched
+        
+
+print(BackspaceStringCompare("abcde", "abcde")) #True
+print(BackspaceStringCompare("Uber Career Prep", "u#Uber Careee#r Prep")) #True
+print(BackspaceStringCompare("abcdef###xyz", "abcw#xyz")) #True
+print(BackspaceStringCompare("abcdef###xyz", "abcdefxyz###")) #False
+print(BackspaceStringCompare("a##c", "#a#c")) #True
 
