@@ -24,7 +24,7 @@ def ShortestSubstring(s, req):
     """
     technique: two pointers
     time complexity = O(n + m) where: n = length of s m = length of req
-    space complexity = O(1)
+    space complexity = O(n) - space for the dict storing the required chars
     time = 1hr10ins
     """
 
