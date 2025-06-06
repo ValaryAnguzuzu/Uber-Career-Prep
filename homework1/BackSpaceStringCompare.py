@@ -106,9 +106,98 @@ def backspace(s, t):
     return True # all chars matched
         
 
+# print(BackspaceStringCompare("abcde", "abcde")) #True
+# print(BackspaceStringCompare("Uber Career Prep", "u#Uber Careee#r Prep")) #True
+# print(BackspaceStringCompare("abcdef###xyz", "abcw#xyz")) #True
+# print(BackspaceStringCompare("abcdef###xyz", "abcdefxyz###")) #False
+# print(BackspaceStringCompare("a##c", "#a#c")) #True
+
+
+
+# Question 4: BackspaceStringCompare
+# Given two strings representing series of keystrokes, 
+# determine whether the resulting text is the same. Backspaces are 
+# represented by the '#' character so "x#" results in the empty string ("").
+
+# Examples:
+# eInput Strings: "abcde", "abcde"
+# Output: True
+
+# Input Strings: "Uber Career Prep", "u#Uber Careee#r Prep"
+# Output: True
+
+# Input Strings: "abcdef###xyz", "abcw#xyz"
+# Output: True
+
+# Input Strings: "abcdef###xyz", "abcdefxyz###"
+# Output: False
+
+#if there is no # return true
+#2 stacks
+#if # pop from stack; check its nonepty first, else push to stack
+#compare the two stacks
+
+
+ 
+#loop thru both simulatneously
+#s 
+#the ptr at the end
+#move it
+#keep track of num of #
+
+
+#t
+    #the ptr at the end
+    #move it
+    #keep track of num of #
+
+    #be comparing the chars
+
+def backssc(s, t):   # s = "abcdef###xyz", t = "abcdefxyz###"
+
+    l = len(s) - 1   
+    r = len(t) - 1
+
+    back_s = 0
+    back_t = 0
+
+    while l >= 0 and r >= 0:
+            #s
+        while l >= 0:
+            if s[l] == "#":
+                back_s += 1
+                l -= 1
+            elif back_s > 0:
+                back_s -= 1
+                l -= 1
+            else:
+                break
+
+         #t
+
+        while r >= 0:
+            if t[r] == "#":
+                back_t += 1
+                r -= 1
+            elif back_t > 0:
+                back_t -= 1
+                r -= 1
+            else:
+                break
+
+        if l >= 0 and r >= 0 and s[l] != t[r]:
+            return False
+
+        l -= 1
+        r -= 1
+    return True
+
+        
+
+
+
 print(BackspaceStringCompare("abcde", "abcde")) #True
 print(BackspaceStringCompare("Uber Career Prep", "u#Uber Careee#r Prep")) #True
 print(BackspaceStringCompare("abcdef###xyz", "abcw#xyz")) #True
 print(BackspaceStringCompare("abcdef###xyz", "abcdefxyz###")) #False
 print(BackspaceStringCompare("a##c", "#a#c")) #True
-
