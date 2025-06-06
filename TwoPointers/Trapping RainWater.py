@@ -32,7 +32,7 @@ def trap(height):
         while l < r:
             
             #which ptr shld we move
-            if maxLeft < maxRight:
+            if maxLeft <= maxRight:
                 l += 1
             #check if we can trap water here...
             #get the min to calculate the amt of water trapped
