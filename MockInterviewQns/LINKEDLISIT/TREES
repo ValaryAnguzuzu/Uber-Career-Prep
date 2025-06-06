@@ -1,0 +1,89 @@
+# Given a binary tree, find the longest path from the root to a leaf (node with no children).
+# Example
+# Input: 
+#                  1
+#                /    \
+#              2      3
+#            /   \
+#          4     5
+#         /
+#        6
+
+#Output: 4
+
+# Input:
+#                  1
+#                /    \
+#              2      3
+#            /   \    /  
+#          4      5   6
+
+# Output: 3
+
+#counting #of levels
+#BFS
+#queue SC = O(w) w is the #of nodes at every level
+        #TC = O(n)
+#[1] [2, 3] [3, 4, 5] [4, 5, 6]
+
+def longest_path(root): 
+    q = deque()
+    level = 0
+    q.append(root) #[]
+                    #1, 2, 3
+    while q:
+        for _ in range(len(q)):
+            node = q.popleft() #O(1)
+            
+            if node.left:
+                q.append(node.left) #(1)
+            if node.right:
+                q.append(node.right)
+        level += 1
+    return level
+    
+# Median of a Sorted Linked List
+# Given a sorted singly list of integers, return the median value.
+# Example
+# Input: 1 ⇒ 3 ⇒ 4 ⇒ 5 ⇒ 6 ⇒ 6 ⇒ 9
+# Output: 5
+
+# Input: 1 ⇒ 3 ⇒ 4 ⇒ 5 ⇒ 6 ⇒ 6 ⇒ 8 ⇒ 9
+# Output: 5.5
+
+#two ptrs, fast, slow
+#  1 ⇒ 3 ⇒ 4 ⇒ 5 ⇒ 6 ⇒ 6 ⇒ 9 
+#.                         f
+#.             s
+#.  1 ⇒ 3 ⇒ 4 ⇒ 5 ⇒ 6 ⇒ 6 ⇒ 8 ⇒ 9 
+#                                 f
+#.               p  s
+
+#    1 => 2 => 3
+#              f
+#         s
+#    p
+#return slow
+
+#when to stop moving; fast.next not none
+#TC = O(n) n number of nodes
+#SC = (1)
+def find_median(head):
+    slow = head
+    fast = head
+    prev = None
+    
+    while fast and fast.next:
+        prev = slow
+        slow = slow.next
+        fast = fast.next.next
+        
+    #do we have an even number nodes
+    if fast is None:
+        return (prev.val + slow.val) / 2
+        
+    #odd
+    else:
+        return slow.val
+#extra variable
+#
