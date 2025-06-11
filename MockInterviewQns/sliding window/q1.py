@@ -59,3 +59,4 @@ print(count_unique_subarrays([4, 4, 2, 4, 4], 3))  # Output: 3
 
 
         
+# Write a function to check if a string is a palindrome
