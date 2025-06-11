@@ -1,0 +1,60 @@
+
+# Complete the 'can_place_flowers' function below.
+#
+# The function is expected to return a BOOLEAN.
+# The function accepts following parameters:
+#  1. INTEGER_ARRAY flowerbed
+#  2. INTEGER n
+#
+
+def can_place_flowers(flowerbed, n):
+    # Write your code here
+    #0 is empty plot, 1 is flower is planted
+    #n is number of new flowers we want to plant
+    #we cant plant a flower next to a 1
+    #meaning if a flower is at i, then i+1 and i-1 MUST be empty
+    #loop thru the flower bed: check if both left and right are also 0 or out of bounds
+    #if yes plant there and reduce n
+    
+    count = 0
+    length = len(flowerbed)
+    
+    for i in range(length):
+        if flowerbed[i] == 0:
+            left = (i == 0) or (flowerbed[i-1] == 0)
+            right = (i == length - 1) or (flowerbed[i+1] == 0)
+            
+            if left and right:
+                flowerbed[i] = 1
+                count += 1
+                
+                if count >= n:
+                    return True
+    return count >= n
+    
+
+if __name__ == "__main__":
+    input_data = sys.stdin.read().strip().split("\n")
+    
+    results = []
+    for i in range(0, len(input_data), 2):
+        flowerbed_line = input_data[i].strip()
+        n = int(input_data[i + 1].strip())
+        
+        if flowerbed_line == "[]":
+            flowerbed = []
+        else:
+            flowerbed = list(map(int, flowerbed_line.strip("[]").split(",")))
+
+        # Redirect debugging output to stderr
+        original_stdout = sys.stdout
+        try:
+            sys.stdout = sys.stderr
+            result = can_place_flowers(flowerbed, n)
+        finally:
+            sys.stdout = original_stdout
+
+        results.append(result)
+    
+    for res in results:
+        print(res)
